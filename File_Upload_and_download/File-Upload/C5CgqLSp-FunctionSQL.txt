@@ -1,0 +1,214 @@
+AGGREGATE FUNCTION:
+
+# COUNT:
+	* To count no.of rows in a table.
+	* If the column has null value it will show that row in the count.
+	
+# MAX:
+	* To get Max value in a column
+	
+# MIN:
+	* To get Min value in a column
+ 
+# SUM:
+	* To add the value in a column
+	
+# AVG:
+	* To get Avg value in a column
+
+VIEW:
+	* view is LOGICAL/VIRTUAL table that doesn't exit physically in database.
+	* It is stored in oracle data dictionary.
+	* view stores SQL statement/queries in database.
+	* View doesn't hold the data of its own. It will only hold the SQL queries so that the data can be fetched from the tables.
+	* In view, No data is stored in the view.
+	
+	ADVANTAGES:
+		* To make complex query to look simple.
+		* View used to increase the security. (Able to hide particular column and the view table can be shared)
+		
+	TYPES OF VIEW:
+		* Simple View
+		* Complex View
+
+
+ANALYTIC FUNCTION
+		* It compute an aggregate value based on group of rows.
+		* It was introduced in oracle 8i.
+		* It is used to perform tasks in SQL.
+		
+		
+		SYNTAX
+		
+			* Analytic_function_name(arguments)
+			 OVER([partition_clause][order_by_clause][windowing_clause])
+			 
+			* Partition_clause
+				It clause is used to group the column value based on expression.
+				This is optional.
+				
+			* Order_by_clause
+				It is used to Order the data for each partition.
+				This is optional.
+				
+			*Windowing_clause 
+				It determines the rows in the analytic window to evaluate.
+				This is optional,
+				
+				1.RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW.
+					Last row in the window changes as the current row changes (default)
+					
+				2.RANGE BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING.
+					First row in the window changes at the current row changes.
+					
+				3.RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING.
+					All rows are included in the window.
+					
+			TYPES OF ANALITIC FUNCTION.
+				1.RANK
+				2.DENSE_RANK
+				3.LEAD
+				4.LAG
+				5.FIRST_VALUE
+				6.LAST_VALUE
+				7.NTH-VALUE.
+				
+			1.RANK
+				# It used to returns the rank of a value in a group of values.
+				# It skips the ranking if there is a tie between ranks.
+				# It was introduced in 2005.
+			SYNTAX:
+				# SELECT RANK() 
+					OVER (PARTITION BY Partition_column order by ordering_colums asc|desc)
+					From Table_name;
+					
+			2.DENSE_RANK
+				# It is used to returns the rank of a value in a group of values.
+				# It generates ranks continuously even if  there is a tie between ranks.
+				# It was introduced in 2005.
+			Syntax:
+				#SELECT DENSE_RANK() 
+					OVER (PARTITION BY Partition_column order by ordering_colums asc|desc)
+					From Table_name;
+		
+			3.LEAD
+				#It returns values from the next row in the table.
+				#It canbe used in these versions---oracle12c,oracle11g,Oracle 10gi,Oracle 8i.
+				# next row to be first.
+			SYNTAX
+				#SELECT LEAD(EXPRESSION ,OFFSET)
+					OVER(ORDER BY ORDERING_COLUMNS ASC|DESC)
+					FROM TABLE_NAME;
+			4.LAG
+				#It Returns values from the previous row in the table.
+				
+			SYNTAX
+				#SELECT LAG(EXPRESSION ,OFFSET)
+					OVER(ORDER BY ORDERING_COLUMNS ASC|DESC)
+					FROM TABLE_NAME;
+			5.FIRST_VALUE
+				#Used to return the FirstValue in an ordered set of values.
+				#It can be used in these verison-----oracle 12c,Oracle 11g,Oracle 10g,Oracle 9i,Oracle 8i
+				
+			SYNTAX
+				#SELECT DISTINCT FIRST_VALUE(output_column)
+				OVER(PARTITION BY PARTITION_COLUMN ORDER BY ORDERING_COLPUMN ASC|DESC 
+				RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+				FROM TABLE NAME;
+			
+			6.LAST_VALUE
+				#Used to retrun the lastvalues in an ordered set of values.
+				#It can be used in these version--oracle 12c,oracle 11g, oracle 10g,oracle 9i,oracle 8i.
+				
+			SYNTAX
+			
+				#SELECT DISTINCT LAST_VALUE(output_column)
+				OVER(PARTITION BY PARTITION_COLUMN ORDER BY ORDERING_COLPUMN ASC|DESC 
+				RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+				FROM TABLE NAME;
+				
+			7.NTH VALUE
+				
+				#Lets you find a specific position in the analytic window.
+				#It was introduced in oracle 11g.
+			
+			SYSNTAX
+				#SELECT NTH_VALUE(OUTPUT_COLUMN,N)
+				
+				OVER(PARTITION BY PARTITION_COLUMN ORDER BY ORDERING_COLUMNS ASC|DESC
+				RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+				FROM TABLE_NAME;
+				
+				#OUTPUT COLUMN----->The Column that you want to return value.
+				#n----->nth value of output_column in the analytic window that you wish to return.
+
+
+
+ 
+GroupBy Clause 
+		
+		# Group by is used to  group rows that have same values.
+		# Group by is used with aggregate function (min,max,sum,avg)
+
+
+Having Clause
+		# Having clause is used to restrict the result returned by the Group BY Clause.
+		# Having clause acts same as where clause.
+		
+SYNTAX
+		SELECT COLUMN_NAME1,COLUMN_NAME2,....
+		FROM TABLE_NAME
+		GROUP BY COLUMN_NAME1,COLUMN_NAME2,....
+		[HAVING CONDITION];
+				
+				
+				
+SUB QUERY
+	# It is a query or SELECT query inside another query.
+	# Use->To improve the Maintainability and performance of your query.
+	
+TYPES OF SUB QUERY
+
+	1.SINGLE ROW SUB QUERY
+	2.MULTI ROW SUB QUERY
+	3.SCALAR SUB QUERY
+	4.INLINE SUB QUERY
+	5.NESTED SUB QUERY
+	6.CORRELATED SUB QUERY
+	7.MULTI COLUMN SUB QUERY
+	
+	
+1.SINGLE ROW SUB QUERY
+	# A sub query returning only one row/value
+	# Relational Operators supported (=,<,>,<=,>=,<>,IN,NOT IN)
+	
+	
+	SELECT COLUMN1,COLUMN2........
+	FROM TABLE_NAME
+	WHERE CONDITION =(SELECT COLUMN1 FROM TABLE_NAME WHERE CONDITION)
+					
+		
+2.MULTI ROW SUB QUERY
+	# A sub query returning More Than one row/value.
+	# Relational Operators supported (IN,NOT IN,ALL,ANY)
+	
+	
+	SELECT COLUMN1,COLUMN2....
+	FROM TABLE_NAME
+	WHERE CONDITION IN|NOT IN
+	(SELECT COLUMN1 FROM TABLE_NAME WHERE CONDITION)
+	
+	
+3.SCALAR SUB QUERY
+
+	# A sub query inside a SELECT CLAUSE.
+	# A Scalar sub query returns exactly one rows as output.
+	# If the scalar sub query finds no match,it returns NULL.
+	# If The scalar subquery finds more than one match,it returns an error.
+	
+	
+	SELECT COLUMN1,COLUMN2,(SELECT COLUMN1 FROM TABLE_NAME WHERE CONDITION)
+	FROM TABLE_NAME
+	WHERE CONDITION
+	
+	
